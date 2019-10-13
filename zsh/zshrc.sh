@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/ubuntu/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -70,6 +70,8 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 git
+osx
+tmux
 zsh-syntax-highlighting
 )
 
@@ -101,9 +103,13 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# export CLICOLOR=1
-# export LSCOLORS=ExFxBxDxCxegedabagacad
+# True Color
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
 
+# aliases
 alias vim="nvim"
+alias la="ls -a"
 
+# fzf in terminal
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
