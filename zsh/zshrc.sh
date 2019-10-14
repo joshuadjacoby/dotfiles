@@ -111,5 +111,8 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 alias vim="nvim"
 alias la="ls -a"
 
+# tmux
+ZSH_TMUX_AUTOCONNECT=false
+
 # fzf in terminal
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

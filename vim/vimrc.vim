@@ -16,7 +16,7 @@ so ~/dotfiles/vim/plugins.vim
    if (has("termguicolors"))
      set termguicolors
    endif
- " endif
+" endif
 let g:lightline = {
   \ 'colorscheme': 'onedark',
   \ 'active': {
