@@ -111,7 +111,10 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 alias vim="nvim"
 alias la="ls -a"
 
-# tmux
+# custom cd with ls
+chpwd() ls
+
+# tmux plugin config
 ZSH_TMUX_AUTOCONNECT=false
 
 # fzf in terminal
