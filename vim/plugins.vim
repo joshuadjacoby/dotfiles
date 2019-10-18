@@ -27,7 +27,6 @@ Plugin 'tpope/vim-commentary'
 
 " CSS colors {{{
 Plugin 'ap/vim-css-color'
-" Plugin 'shmargum/vim-sass-colors'
 " }}}
 
 " Emmet {{{
@@ -49,6 +48,7 @@ Plugin 'prettier/vim-prettier'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tveskag/nvim-blame-line'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 " }}}
 
 " Icons {{{
@@ -61,6 +61,7 @@ Plugin 'terryma/vim-multiple-cursors'
 
 " Parentheses {{{
 Plugin 'tpope/vim-surround'
+" Plugin 'luochen1990/rainbow'
 " }}}
 
 " Searching {{{
