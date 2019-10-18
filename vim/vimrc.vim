@@ -80,7 +80,7 @@ let g:javascript_plugin_jsdoc = 1
 " }}}
 
 " Rainbow brakcets {{{
-let g:rainbow_active = 1
+let g:rainbow_active = 0
 " autocmd FileType javascript.jsx syntax clear jsFuncBlock
 " }}}
 

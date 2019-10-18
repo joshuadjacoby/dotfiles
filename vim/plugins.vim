@@ -61,7 +61,7 @@ Plugin 'terryma/vim-multiple-cursors'
 
 " Parentheses {{{
 Plugin 'tpope/vim-surround'
-" Plugin 'luochen1990/rainbow'
+Plugin 'luochen1990/rainbow'
 " }}}
 
 " Searching {{{
