@@ -42,7 +42,6 @@ set laststatus=2
 set noshowmode
 set smartindent
 set autoindent
-set mouse=a
 " }}}
 
 " Shortcut mapping {{{
