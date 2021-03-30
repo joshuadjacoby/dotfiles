@@ -38,6 +38,7 @@ colorscheme onedark
 
 " UI config {{{
 set number
+set relativenumber
 set laststatus=2
 set noshowmode
 set smartindent
@@ -53,6 +54,7 @@ map <C-i> :NERDTreeFind<CR>
 map <silent> <leader>b :ToggleBlameLine<CR>
 map <leader>g :Gstatus<CR>
 map <silent> <leader>n :noh<CR>
+map <silent> <leader>r :set invrelativenumber<CR>
 " }}}
 
 " Split Panes {{{

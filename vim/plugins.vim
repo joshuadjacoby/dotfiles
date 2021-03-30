@@ -75,7 +75,10 @@ Plugin 'itchyny/lightline.vim'
 
 " Syntax {{{
 Plugin 'sheerun/vim-polyglot'
-Plugin 'heavenshell/vim-jsdoc'
+Plugin 'heavenshell/vim-jsdoc', {
+  \ 'for': ['javascript', 'javascript.jsx', 'typescript'],
+  \ 'do': 'make install'
+\}
 Plugin 'derekwyatt/vim-scala'
 " }}}
 
