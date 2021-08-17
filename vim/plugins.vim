@@ -80,6 +80,7 @@ Plugin 'heavenshell/vim-jsdoc', {
   \ 'do': 'make install'
 \}
 Plugin 'derekwyatt/vim-scala'
+Plugin 'mfukar/robotframework-vim'
 " }}}
 
 " Whitespace {{{

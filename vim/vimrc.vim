@@ -52,7 +52,7 @@ map <C-f> :Ag<CR>
 map <C-o> :NERDTreeToggle<CR>
 map <C-i> :NERDTreeFind<CR>
 map <silent> <leader>b :ToggleBlameLine<CR>
-map <leader>g :Gstatus<CR>
+map <leader>g :Git<CR>
 map <silent> <leader>n :noh<CR>
 map <silent> <leader>r :set invrelativenumber<CR>
 " }}}
