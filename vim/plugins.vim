@@ -56,7 +56,7 @@ Plugin 'ryanoasis/vim-devicons'
 " }}}
 
 " Multiple cursors {{{
-Plugin 'terryma/vim-multiple-cursors'
+Plugin 'mg979/vim-visual-multi'
 " }}}
 
 " Parentheses {{{

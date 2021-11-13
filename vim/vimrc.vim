@@ -33,6 +33,9 @@ let g:lightline = {
 let g:onedark_termcolors = 16
 filetype on
 syntax on
+set t_Co=256
+set cursorline
+set cursorcolumn
 colorscheme onedark
 " }}}
 
