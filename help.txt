@@ -1,0 +1,5 @@
+Install oh-my-zsh
+Install Hack Nerd Font
+Install Vundle for Vim
+Install zsh-syntax-highlighting
+Install reattach-to-user-namespace
