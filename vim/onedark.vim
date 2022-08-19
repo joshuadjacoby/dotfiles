@@ -5,7 +5,10 @@
 " License:    The MIT License (MIT)
 " Based On:   https://github.com/MaxSt/FlatColor/
 
-" A companion [vim-airline](https://github.com/bling/vim-airline) theme is available at: https://github.com/joshdick/airline-onedark.vim
+" Companion statusline plugin and terminal themes are included with onedark.vim:
+"  * https://github.com/joshdick/onedark.vim#lightlinevim-colorscheme
+"  * https://github.com/joshdick/onedark.vim#vim-airline-theme
+"  * https://github.com/joshdick/onedark.vim/tree/main/term
 
 " Color Reference {{{
 
@@ -56,7 +59,7 @@ let g:colors_name="onedark"
 " Set to "256" for 256-color terminals, or
 " set to "16" to use your terminal emulator's native colors
 " (a 16-color palette for this color scheme is available; see
-" < https://github.com/joshdick/onedark.vim/blob/master/README.md >
+" < https://github.com/joshdick/onedark.vim/blob/main/README.md >
 " for more information.)
 if !exists("g:onedark_termcolors")
   let g:onedark_termcolors = 256
@@ -75,12 +78,15 @@ function! s:h(group, style, ...)
     let s:highlight = s:group_colors[a:group]
     for style_type in ["fg", "bg", "sp"]
       if (has_key(a:style, style_type))
-        let l:default_style = (has_key(s:highlight, style_type) ? s:highlight[style_type] : { "cterm16": "NONE", "cterm": "NONE", "gui": "NONE" })
+        let l:default_style = (has_key(s:highlight, style_type) ? copy(s:highlight[style_type]) : { "cterm16": "NONE", "cterm": "NONE", "gui": "NONE" })
         let s:highlight[style_type] = extend(l:default_style, a:style[style_type])
       endif
     endfor
     if (has_key(a:style, "gui"))
       let s:highlight.gui = a:style.gui
+    endif
+    if (has_key(a:style, "cterm"))
+      let s:highlight.cterm = a:style.cterm
     endif
   else
     let s:highlight = a:style
@@ -142,7 +148,8 @@ let s:purple = s:colors.purple
 let s:cyan = s:colors.cyan
 let s:white = s:colors.white
 let s:black = s:colors.black
-let s:visual_black = s:colors.visual_black " Black out selected text in 16-color visual mode
+let s:foreground = s:colors.foreground
+let s:background = s:colors.background
 let s:comment_grey = s:colors.comment_grey
 let s:gutter_fg_grey = s:colors.gutter_fg_grey
 let s:cursor_grey = s:colors.cursor_grey
@@ -155,12 +162,31 @@ let s:vertsplit = s:colors.vertsplit
 
 " Terminal Colors {{{
 
-let g:terminal_ansi_colors = [
-  \ s:black.gui, s:red.gui, s:green.gui, s:yellow.gui,
-  \ s:blue.gui, s:purple.gui, s:cyan.gui, s:white.gui,
-  \ s:visual_grey.gui, s:dark_red.gui, s:green.gui, s:dark_yellow.gui,
-  \ s:blue.gui, s:purple.gui, s:cyan.gui, s:comment_grey.gui
-\]
+if has('nvim')
+  let g:terminal_color_0 = s:black.gui
+  let g:terminal_color_1 = s:red.gui
+  let g:terminal_color_2 = s:green.gui
+  let g:terminal_color_3 = s:yellow.gui
+  let g:terminal_color_4 = s:blue.gui
+  let g:terminal_color_5 = s:purple.gui
+  let g:terminal_color_6 = s:cyan.gui
+  let g:terminal_color_7 = s:comment_grey.gui
+  let g:terminal_color_8 = s:visual_grey.gui
+  let g:terminal_color_9 = s:red.gui
+  let g:terminal_color_10 = s:green.gui
+  let g:terminal_color_11 = s:yellow.gui
+  let g:terminal_color_12 = s:blue.gui
+  let g:terminal_color_13 = s:purple.gui
+  let g:terminal_color_14 = s:cyan.gui
+  let g:terminal_color_15 = s:white.gui
+else
+  let g:terminal_ansi_colors = [
+    \ s:black.gui, s:red.gui, s:green.gui, s:yellow.gui,
+    \ s:blue.gui, s:purple.gui, s:cyan.gui, s:white.gui,
+    \ s:visual_grey.gui, s:dark_red.gui, s:green.gui, s:dark_yellow.gui,
+    \ s:blue.gui, s:purple.gui, s:cyan.gui, s:comment_grey.gui
+  \]
+endif
 
 " }}}
 
@@ -259,7 +285,7 @@ call s:h("TabLineFill", {}) " tab pages line, where there are no labels
 call s:h("TabLineSel", { "fg": s:white }) " tab pages line, active tab page label
 call s:h("Terminal", { "fg": s:white, "bg": s:black }) " terminal window (see terminal-size-color)
 call s:h("Title", { "fg": s:green }) " titles for output from ":set all", ":autocmd" etc.
-call s:h("Visual", { "fg": s:visual_black, "bg": s:visual_grey }) " Visual mode selection
+call s:h("Visual", { "fg": s:black, "bg": s:visual_grey }) " Visual mode selection
 call s:h("VisualNOS", { "bg": s:visual_grey }) " Visual mode selection when vim is "Not Owning the Selection". Only X11 Gui's gui-x11 and xterm-clipboard supports this.
 call s:h("WarningMsg", { "fg": s:yellow }) " warning messages
 call s:h("WildMenu", { "fg": s:black, "bg": s:blue }) " current match in 'wildmenu' completion
@@ -318,10 +344,19 @@ call s:h("goTypeName", { "fg": s:yellow })
 call s:h("goDeclType", { "fg": s:purple })
 call s:h("goTypeDecl", { "fg": s:purple })
 
-" HTML
+" HTML (keep consistent with Markdown, below)
 call s:h("htmlTitle", { "fg": s:white })
 call s:h("htmlArg", { "fg": s:dark_yellow })
+call s:h("htmlBold", { "fg": s:dark_yellow, "gui": "bold", "cterm": "bold" })
+call s:h("htmlBoldItalic", { "fg": s:green, "gui": "bold,italic", "cterm": "bold,italic" })
 call s:h("htmlEndTag", { "fg": s:white })
+call s:h("htmlH1", { "fg": s:red })
+call s:h("htmlH2", { "fg": s:red })
+call s:h("htmlH3", { "fg": s:red })
+call s:h("htmlH4", { "fg": s:red })
+call s:h("htmlH5", { "fg": s:red })
+call s:h("htmlH6", { "fg": s:red })
+call s:h("htmlItalic", { "fg": s:purple, "gui": "italic", "cterm": "italic" })
 call s:h("htmlH1", { "fg": s:white })
 call s:h("htmlLink", { "fg": s:purple })
 call s:h("htmlSpecialChar", { "fg": s:dark_yellow })
@@ -543,9 +578,14 @@ call s:h("xmlTagName", { "fg": s:red })
 " Plugin Highlighting {{{
 
 " airblade/vim-gitgutter
-hi link GitGutterAdd    SignifySignAdd
-hi link GitGutterChange SignifySignChange
-hi link GitGutterDelete SignifySignDelete
+call s:h("GitGutterAdd", { "fg": s:green })
+call s:h("GitGutterChange", { "fg": s:yellow })
+call s:h("GitGutterDelete", { "fg": s:red })
+
+" dense-analysis/ale
+call s:h("ALEError", { "fg": s:red, "gui": "underline", "cterm": "underline" })
+call s:h("ALEWarning", { "fg": s:yellow, "gui": "underline", "cterm": "underline" })
+call s:h("ALEInfo", { "gui": "underline", "cterm": "underline" })
 
 " easymotion/vim-easymotion
 call s:h("EasyMotionTarget", { "fg": s:red, "gui": "bold", "cterm": "bold" })
@@ -553,15 +593,43 @@ call s:h("EasyMotionTarget2First", { "fg": s:yellow, "gui": "bold", "cterm": "bo
 call s:h("EasyMotionTarget2Second", { "fg": s:dark_yellow, "gui": "bold", "cterm": "bold" })
 call s:h("EasyMotionShade",  { "fg": s:comment_grey })
 
+" lewis6991/gitsigns.nvim
+hi link GitSignsAdd    GitGutterAdd
+hi link GitSignsChange GitGutterChange
+hi link GitSignsDelete GitGutterDelete
+
 " mhinz/vim-signify
-call s:h("SignifySignAdd", { "fg": s:green })
-call s:h("SignifySignChange", { "fg": s:yellow })
-call s:h("SignifySignDelete", { "fg": s:red })
+hi link SignifySignAdd    GitGutterAdd
+hi link SignifySignChange GitGutterChange
+hi link SignifySignDelete GitGutterDelete
+
+" neoclide/coc.nvim
+call s:h("CocErrorSign", { "fg": s:red })
+call s:h("CocWarningSign", { "fg": s:yellow })
+call s:h("CocInfoSign", { "fg": s:blue })
+call s:h("CocHintSign", { "fg": s:cyan })
+call s:h("CocFadeOut", { "fg": s:comment_grey })
 
 " neomake/neomake
-call s:h("NeomakeWarningSign", { "fg": s:yellow })
 call s:h("NeomakeErrorSign", { "fg": s:red })
+call s:h("NeomakeWarningSign", { "fg": s:yellow })
 call s:h("NeomakeInfoSign", { "fg": s:blue })
+
+" plasticboy/vim-markdown (keep consistent with Markdown, above)
+call s:h("mkdDelimiter", { "fg": s:purple })
+call s:h("mkdHeading", { "fg": s:red })
+call s:h("mkdLink", { "fg": s:blue })
+call s:h("mkdURL", { "fg": s:cyan, "gui": "underline", "cterm": "underline" })
+
+" prabirshrestha/vim-lsp
+call s:h("LspErrorText", { "fg": s:red })
+call s:h("LspWarningText", { "fg": s:yellow })
+call s:h("LspInformationText", { "fg":s:blue })
+call s:h("LspHintText", { "fg":s:cyan })
+call s:h("LspErrorHighlight", { "fg": s:red, "gui": "underline", "cterm": "underline" })
+call s:h("LspWarningHighlight", { "fg": s:yellow, "gui": "underline", "cterm": "underline" })
+call s:h("LspInformationHighlight", { "fg":s:blue, "gui": "underline", "cterm": "underline" })
+call s:h("LspHintHighlight", { "fg":s:cyan, "gui": "underline", "cterm": "underline" })
 
 " tpope/vim-fugitive
 call s:h("diffAdded", { "fg": s:green })
@@ -595,9 +663,10 @@ hi link gitcommitUnmergedArrow gitcommitUnmergedFile
 
 " }}}
 
-" Neovim terminal colors {{{
+" Neovim-Specific Highlighting {{{
 
 if has("nvim")
+  " Neovim terminal colors {{{
   let g:terminal_color_0 =  s:black.gui
   let g:terminal_color_1 =  s:red.gui
   let g:terminal_color_2 =  s:green.gui
@@ -614,8 +683,33 @@ if has("nvim")
   let g:terminal_color_13 = s:purple.gui " No dark version
   let g:terminal_color_14 = s:cyan.gui " No dark version
   let g:terminal_color_15 = s:comment_grey.gui
+  let g:terminal_color_background = s:background.gui
+  let g:terminal_color_foreground = s:foreground.gui
   let g:terminal_color_background = g:terminal_color_0
   let g:terminal_color_foreground = g:terminal_color_7
+  " }}}
+
+  " Neovim Diagnostics {{{
+  call s:h("DiagnosticError", { "fg": s:red })
+  call s:h("DiagnosticWarn", { "fg": s:yellow })
+  call s:h("DiagnosticInfo", { "fg": s:blue })
+  call s:h("DiagnosticHint", { "fg": s:cyan })
+  call s:h("DiagnosticUnderlineError", { "fg": s:red, "gui": "underline", "cterm": "underline" })
+  call s:h("DiagnosticUnderlineWarn", { "fg": s:yellow, "gui": "underline", "cterm": "underline" })
+  call s:h("DiagnosticUnderlineInfo", { "fg": s:blue, "gui": "underline", "cterm": "underline" })
+  call s:h("DiagnosticUnderlineHint", { "fg": s:cyan, "gui": "underline", "cterm": "underline" })
+  " }}}
+
+  " Neovim LSP (for versions < 0.5.1) {{{
+  hi link LspDiagnosticsDefaultError DiagnosticError
+  hi link LspDiagnosticsDefaultWarning DiagnosticWarn
+  hi link LspDiagnosticsDefaultInformation DiagnosticInfo
+  hi link LspDiagnosticsDefaultHint DiagnosticHint
+  hi link LspDiagnosticsUnderlineError DiagnosticUnderlineError
+  hi link LspDiagnosticsUnderlineWarning DiagnosticUnderlineWarn
+  hi link LspDiagnosticsUnderlineInformation DiagnosticUnderlineInfo
+  hi link LspDiagnosticsUnderlineHint DiagnosticUnderlineHint
+  " }}}
 endif
 
 " }}}
