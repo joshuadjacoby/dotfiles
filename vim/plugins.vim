@@ -34,7 +34,7 @@ Plugin 'mattn/emmet-vim'
 " }}}
 
 " File navigation {{{
-Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 Plugin 'scrooloose/nerdtree'
 " }}}
