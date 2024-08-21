@@ -47,7 +47,6 @@ Plugin 'prettier/vim-prettier'
 " Git integration {{{
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'tveskag/nvim-blame-line'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " }}}
 
@@ -79,8 +78,6 @@ Plugin 'heavenshell/vim-jsdoc', {
   \ 'for': ['javascript', 'javascript.jsx', 'typescript'],
   \ 'do': 'make install'
 \}
-Plugin 'derekwyatt/vim-scala'
-Plugin 'mfukar/robotframework-vim'
 " }}}
 
 " Whitespace {{{

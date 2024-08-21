@@ -110,6 +110,7 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # aliases
+alias vi="\vim"
 alias vim="nvim"
 alias la="ls -a"
 
