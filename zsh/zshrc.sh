@@ -110,9 +110,14 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # aliases
-alias vi="\vim"
-alias vim="nvim"
 alias la="ls -a"
+
+# vim to nvim
+alias vi="nvim"
+alias vim="nvim"
+alias vimdiff="nvim -d"
+alias nvim-vim='NVIM_APPNAME="nvim-vim" nvim'
+export EDITOR=nvim
 
 # custom cd with ls
 chpwd() ls
