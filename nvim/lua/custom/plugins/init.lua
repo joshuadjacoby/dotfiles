@@ -3,9 +3,20 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+  { -- Fzf
+    'ibhagwan/fzf-lua',
+    -- optional for icon support
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      -- calling `setup` is optional for customization
+      require('fzf-lua').setup()
+      vim.keymap.set('n', ';', require('fzf-lua').files, { desc = 'Fzf Files' })
+      vim.keymap.set('n', '<C-f>', require('fzf-lua').live_grep, { desc = 'Fzf Rg' })
+    end,
+  },
   { -- Git
     'tpope/vim-fugitive',
-    init = function()
+    config = function()
       vim.keymap.set('n', '<leader>gg', '<cmd>Git<CR>', { desc = '[G]it Summary' })
     end,
   },
@@ -21,7 +32,7 @@ return {
   'ntpeters/vim-better-whitespace', -- highlights trailing whitespace
   { -- Workspace
     'thaerkh/vim-workspace',
-    init = function()
+    config = function()
       vim.keymap.set('n', '<leader>tw', '<cmd>ToggleWorkspace<CR>', { desc = '[T]oggle [W]orkspace' })
     end,
   },
