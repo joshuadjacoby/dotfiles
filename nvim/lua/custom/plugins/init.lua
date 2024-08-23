@@ -18,6 +18,7 @@ return {
     'tpope/vim-fugitive',
     config = function()
       vim.keymap.set('n', '<leader>gg', '<cmd>Git<CR>', { desc = '[G]it Summary' })
+      vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<CR>', { desc = '[G]it [B]lame' })
     end,
   },
   'mg979/vim-visual-multi', -- multiple cursors
