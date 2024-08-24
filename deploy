@@ -93,11 +93,11 @@ else
   echo -e "\nNot backing up old dotfiles."
 fi
 
-printf "source $HOME/dotfiles/zsh/zshrc_manager.sh" > ~/.zshrc
-printf "so $HOME/dotfiles/vim/vimrc.vim" > ~/.vimrc
+printf "source $HOME/.dotfiles/zsh/zshrc_manager.sh" > ~/.zshrc
+printf "so $HOME/.dotfiles/vim/vimrc.vim" > ~/.vimrc
 printf "set runtimepath^=~/.vim runtimepath+=~/.vim/after\nlet &packpath = &runtimepath\nsource ~/.vimrc\n" > ~/.config/nvim-vim/init.vim
-printf "vim.opt.runtimepath:append(vim.fn.expand('~/dotfiles/nvim'))\nvim.opt.packpath = vim.opt.runtimepath:get()\nvim.cmd('source ' .. vim.fn.expand('~/dotfiles/nvim/init.lua'))\n" >> ~/.config/nvim/init.lua
-printf "source-file $HOME/dotfiles/tmux/tmux.conf" > ~/.tmux.conf
+printf "vim.opt.runtimepath:append(vim.fn.expand('~/.dotfiles/nvim'))\nvim.opt.packpath = vim.opt.runtimepath:get()\nvim.cmd('source ' .. vim.fn.expand('~/.dotfiles/nvim/init.lua'))\n" >> ~/.config/nvim/init.lua
+printf "source-file $HOME/.dotfiles/tmux/tmux.conf" > ~/.tmux.conf
 
 echo
 echo "Please log out and log back in for default shell to be initialized."

@@ -1,5 +1,5 @@
 " Vundle Plugins {{{
-so ~/dotfiles/vim/plugins.vim
+so ~/.dotfiles/vim/plugins.vim
 " }}}
 
 " Color Scheme {{{
