@@ -85,7 +85,9 @@ if echo "$answer" | grep -iq "^y" ;then
   mv ~/.zshrc ~/.zshrc.old
   mv ~/.tmux.conf ~/.tmux.conf.old
   mv ~/.vimrc ~/.vimrc.old
-  mv ~/.config/nvim-vim/init.vim ~/.config/nvim-vim/init.vim.old
+  mkdir ~/.config/nvim/
+  mkdir ~/.config/nvim-vim/
+  mv ~/.config/nvim/init.vim ~/.config/nvim-vim/init.vim
   mv ~/.config/nvim/init.lua ~/.config/nvim/init.lua.old
 else
   echo -e "\nNot backing up old dotfiles."
@@ -93,9 +95,7 @@ fi
 
 printf "source $HOME/dotfiles/zsh/zshrc_manager.sh" > ~/.zshrc
 printf "so $HOME/dotfiles/vim/vimrc.vim" > ~/.vimrc
-mkdir ~/.config/nvim-vim/
-printf "set runtimepath^=~/.vim\nruntimepath+=~/.vim/after\nlet &packpath = &runtimepath\nsource ~/.vimrc\n" > ~/.config/nvim-vim/init.vim
-mkdir ~/.config/nvim/
+printf "set runtimepath^=~/.vim runtimepath+=~/.vim/after\nlet &packpath = &runtimepath\nsource ~/.vimrc\n" > ~/.config/nvim-vim/init.vim
 printf "vim.opt.runtimepath:append(vim.fn.expand('~/dotfiles/nvim'))\nvim.opt.packpath = vim.opt.runtimepath:get()\nvim.cmd('source ' .. vim.fn.expand('~/dotfiles/nvim/init.lua'))\n" >> ~/.config/nvim/init.lua
 printf "source-file $HOME/dotfiles/tmux/tmux.conf" > ~/.tmux.conf
 

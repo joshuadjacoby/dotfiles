@@ -22,7 +22,7 @@ return {
     end,
   },
   'mg979/vim-visual-multi', -- multiple cursors
-  'tipe/vim-surround', -- modify surroundings eg. parens, brackets
+  'tpope/vim-surround', -- modify surroundings eg. parens, brackets
   'google/vim-searchindex', -- display search index
   'romainl/vim-cool', -- auto clear highlight after search
   { -- JsDoc
