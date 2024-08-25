@@ -26,6 +26,7 @@ return {
   'tpope/vim-surround', -- modify surroundings eg. parens, brackets
   'google/vim-searchindex', -- display search index
   'romainl/vim-cool', -- auto clear highlight after search
+  'unblevable/quick-scope', -- highlight for navigating fF and tT
   { -- JsDoc
     'heavenshell/vim-jsdoc',
     ft = { 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx' },
