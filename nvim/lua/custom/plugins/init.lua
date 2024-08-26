@@ -13,7 +13,6 @@ return {
       vim.keymap.set('n', ';', require('fzf-lua').files, { desc = 'Fzf Files' })
       vim.keymap.set('n', '<C-f>', require('fzf-lua').live_grep, { desc = 'Fzf Rg' })
     end,
-    enabled = false,
   },
   { -- Git
     'tpope/vim-fugitive',

@@ -159,7 +159,7 @@ vim.opt.scrolloff = 10
 
 -- Folding
 vim.opt.fillchars = { fold = ' ' }
-vim.opt.foldmethod = 'indent'
+vim.opt.foldmethod = 'syntax'
 vim.opt.foldenable = false
 vim.opt.foldlevel = 99
 vim.g.markdown_folding = 1 -- enable markdown folding
