@@ -18,7 +18,6 @@ return {
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
-      -- vim.keymap.set('n', '<leader>/', builtin.blines, { desc = '[/] Fuzzily search in current buffer' })
       vim.keymap.set('n', '<leader>/', function()
         builtin.blines {
           prompt = 'Current Buffer Fuzzy> ',
