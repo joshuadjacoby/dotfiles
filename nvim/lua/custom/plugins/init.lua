@@ -4,7 +4,7 @@ return {
     enabled = vim.g.use_fzf_lua,
     dependencies = { { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font } },
     config = function()
-      require('fzf-lua').setup()
+      require('fzf-lua').setup { 'telescope' }
 
       local builtin = require 'fzf-lua'
       vim.keymap.set('n', '<leader>sh', builtin.helptags, { desc = '[S]earch [H]elp' })
