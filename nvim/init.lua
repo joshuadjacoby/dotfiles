@@ -343,6 +343,11 @@ require('lazy').setup({
   },
   { 'Bilal2453/luvit-meta', lazy = true },
   {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
+  },
+  {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -439,6 +444,15 @@ require('lazy').setup({
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+          -- Goto Source Definition for TypeScript
+          map('gS', '<cmd>TSToolsGoToSourceDefinition<CR>', '[G]oto [S]ource Definition')
+
+          -- Finds all file references that are currently available
+          map('gF', '<cmd>TSToolsFileReferences<CR>', '[G]oto [F]ile References')
+
+          -- Rename file and references across files
+          map('<leader>rf', '<cmd>TSToolsRenameFile<CR>', '[R]ename [F]ile')
+
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
@@ -507,7 +521,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        -- tsserver = {},
         --
 
         lua_ls = {
@@ -618,12 +632,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
