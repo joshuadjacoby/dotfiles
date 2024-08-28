@@ -74,7 +74,12 @@ return {
     end,
   },
   'mg979/vim-visual-multi', -- multiple cursors
-  'tpope/vim-surround', -- modify surroundings eg. parens, brackets
+  { -- new vim surround in lua
+    'kylechui/nvim-surround',
+    version = '*', -- Use for stability; omit to use `main` branch for the latest features
+    event = 'VeryLazy',
+    opts = {},
+  },
   'google/vim-searchindex', -- display search index
   'romainl/vim-cool', -- auto clear highlight after search
   { -- JsDoc
