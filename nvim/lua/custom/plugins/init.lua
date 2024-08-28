@@ -1,5 +1,5 @@
 return {
-  {
+  { -- GitHub integration
     'pwntester/octo.nvim',
     requires = {
       'nvim-lua/plenary.nvim',
