@@ -4,6 +4,11 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     opts = {},
   },
+  { -- Status Bar
+    'nvim-lualine/lualine.nvim',
+    dependencies = { { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font } },
+    opts = {},
+  },
   { -- Fzf
     'ibhagwan/fzf-lua',
     enabled = vim.g.use_fzf_lua,
