@@ -1,4 +1,9 @@
 return {
+  { -- Better TypeScript LSP integration
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
+  },
   { -- Fzf
     'ibhagwan/fzf-lua',
     enabled = vim.g.use_fzf_lua,
