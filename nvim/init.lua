@@ -440,10 +440,10 @@ require('lazy').setup({
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           -- Goto Source Definition for TypeScript
-          map('gS', '<cmd>TSToolsGoToSourceDefinition<CR>', '[G]oto [S]ource Definition')
+          map('gs', '<cmd>TSToolsGoToSourceDefinition<CR>', '[G]oto [S]ource Definition')
 
           -- Finds all file references that are currently available
-          map('gF', '<cmd>TSToolsFileReferences<CR>', '[G]oto [F]ile References')
+          map('gf', '<cmd>TSToolsFileReferences<CR>', '[G]oto [F]ile References')
 
           -- Rename file and references across files
           map('<leader>rf', '<cmd>TSToolsRenameFile<CR>', '[R]ename [F]ile')
