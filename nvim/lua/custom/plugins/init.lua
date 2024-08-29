@@ -54,16 +54,13 @@ return {
       -- Doesn't work like in telescope
       -- vim.keymap.set('n', '<leader>s/', function()
       --   builtin.live_grep {
-      --     prompt = 'Live Grep in Open Files> ',
       --     grep_open_files = true,
+      --     prompt = 'Live Grep in Open Files> ',
       --   }
       -- end, { desc = '[S]earch [/] in Open Files' })
 
       vim.keymap.set('n', '<leader>sn', function()
-        builtin.files {
-          prompt = 'Search Neovim files> ',
-          cwd = vim.fn.stdpath 'config',
-        }
+        builtin.files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
