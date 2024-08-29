@@ -11,6 +11,18 @@ return {
       require('octo').setup { picker = 'fzf-lua' }
     end,
   },
+  {
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font }, -- OPTIONAL: for file icons
+    },
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
+    opts = {},
+    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  },
   { -- Better TypeScript LSP integration
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
@@ -86,11 +98,17 @@ return {
     build = 'make install',
   },
   'ntpeters/vim-better-whitespace', -- highlights trailing whitespace
-  'itchyny/lightline.vim', -- Used to shorten filename in tabs
   { -- Workspace
     'thaerkh/vim-workspace',
     config = function()
       vim.keymap.set('n', '<leader>tw', '<cmd>ToggleWorkspace<CR>', { desc = '[T]oggle [W]orkspace' })
+
+      vim.opt.sessionoptions:append 'globals'
+      vim.api.nvim_create_user_command('Mksession', function(attr)
+        vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
+
+        vim.cmd.mksession { bang = attr.bang, args = attr.fargs }
+      end, { bang = true, complete = 'file', desc = 'Save barbar with :mksession', nargs = '?' })
     end,
   },
 }
