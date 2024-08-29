@@ -88,6 +88,7 @@ return {
     build = 'make install',
   },
   'ntpeters/vim-better-whitespace', -- highlights trailing whitespace
+  'itchyny/lightline.vim', -- Used to shorten filename in tabs
   { -- Workspace
     'thaerkh/vim-workspace',
     config = function()
