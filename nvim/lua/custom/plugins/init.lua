@@ -132,7 +132,7 @@ return {
     config = function()
       vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals'
       require('auto-session').setup {
-        suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+        suppressed_dirs = { '~/', '~/projects', '~/Downloads', '/' },
 
         pre_save_cmds = {
           'ScopeSaveState',
