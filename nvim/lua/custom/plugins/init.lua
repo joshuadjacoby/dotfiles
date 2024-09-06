@@ -11,7 +11,7 @@ return {
       require('octo').setup { picker = 'fzf-lua' }
     end,
   },
-  {
+  { -- Buffers in the tabline
     'romgrk/barbar.nvim',
     dependencies = {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
@@ -70,6 +70,21 @@ return {
       -- :BarbarDisable - very bad command, should never be used
     end,
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  },
+  { -- Session
+    'rmagatti/auto-session',
+    config = function()
+      vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals'
+      require('auto-session').setup {
+        suppressed_dirs = { '~/', '~/projects', '~/Downloads', '/' },
+
+        pre_save_cmds = {
+          function() -- Barbar can restore buffer order and pins
+            vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
+          end,
+        },
+      }
+    end,
   },
   { -- Better TypeScript LSP integration
     'pmizio/typescript-tools.nvim',
@@ -154,19 +169,4 @@ return {
     build = 'make install',
   },
   'ntpeters/vim-better-whitespace', -- highlights trailing whitespace
-  { -- Workspace
-    'rmagatti/auto-session',
-    config = function()
-      vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals'
-      require('auto-session').setup {
-        suppressed_dirs = { '~/', '~/projects', '~/Downloads', '/' },
-
-        pre_save_cmds = {
-          function() -- Barbar can restore buffer order and pins
-            vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
-          end,
-        },
-      }
-    end,
-  },
 }
