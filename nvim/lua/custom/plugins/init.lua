@@ -12,7 +12,53 @@ return {
     end,
   },
   { -- Buffers in the tabline
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = {
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+    },
+    config = function()
+      require('bufferline').setup {}
+      local map = function(keys, func, desc)
+        vim.keymap.set('n', keys, func, { desc = '[B]uffer: ' .. desc })
+      end
+
+      -- Move to previous/next
+      map('<A-,>', '<Cmd>BufferLineCyclePrev<CR>', 'Previous')
+      map('<A-.>', '<Cmd>BufferLineCycleNext<CR>', 'Next')
+      -- Re-order to previous/next
+      map('<A-<>', '<Cmd>BufferLineMovePrev<CR>', 'Move Previous')
+      map('<A->>', '<Cmd>BufferLineMoveNext<CR>', 'Move Next')
+      -- Goto buffer in position...
+      map('<A-1>', '<Cmd>BufferLineGoToBuffer 1<CR>', 'Goto 1')
+      map('<A-2>', '<Cmd>BufferLineGoToBuffer 2<CR>', 'Goto 2')
+      map('<A-3>', '<Cmd>BufferLineGoToBuffer 3<CR>', 'Goto 3')
+      map('<A-4>', '<Cmd>BufferLineGoToBuffer 4<CR>', 'Goto 4')
+      map('<A-5>', '<Cmd>BufferLineGoToBuffer 5<CR>', 'Goto 5')
+      map('<A-6>', '<Cmd>BufferLineGoToBuffer 6<CR>', 'Goto 6')
+      map('<A-7>', '<Cmd>BufferLineGoToBuffer 7<CR>', 'Goto 7')
+      map('<A-8>', '<Cmd>BufferLineGoToBuffer 8<CR>', 'Goto 8')
+      map('<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', 'Goto 9')
+      map('<A-0>', '<Cmd>BufferLineGoToBuffer -1<CR>', 'Goto Last')
+      -- Pin/unpin buffer
+      map('<A-p>', '<Cmd>BufferLineTogglePin<CR>', 'Pin')
+      -- Close buffer
+      map('<A-c>', '<Cmd>BufferLinePickClose<CR>', 'Close')
+      -- Close commands
+      map('<leader>bc', '<Cmd>BufferLineCloseOthers<CR>', '[C]lose Others')
+      --                 :BufferLineCloseLeft
+      --                 :BufferLineCloseRight
+      -- Magic buffer-picking mode
+      map('<C-p>', '<Cmd>BufferLinePick<CR>', 'Pick')
+      -- Sort automatically by...
+      map('<leader>bd', '<Cmd>BufferLineSortByDirectory<CR>', 'Order By [D]irectory')
+      map('<leader>be', '<Cmd>BufferLineSortByExtension<CR>', 'Order By [E]xtension')
+      map('<leader>bt', '<Cmd>BufferLineSortByTabs<CR>', 'Order By [T]abs')
+    end,
+  },
+  { -- Buffers in the tabline
     'romgrk/barbar.nvim',
+    enabled = false,
     dependencies = {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font }, -- OPTIONAL: for file icons
@@ -21,7 +67,9 @@ return {
       vim.g.barbar_auto_setup = false
     end,
     config = function()
-      require('barbar').setup {}
+      require('barbar').setup {
+        animation = false,
+      }
 
       local map = function(keys, func, desc)
         vim.keymap.set('n', keys, func, { desc = '[B]uffer: ' .. desc })
@@ -48,6 +96,8 @@ return {
       map('<A-p>', '<Cmd>BufferPin<CR>', 'Pin')
       -- Close buffer
       map('<A-c>', '<Cmd>BufferClose<CR>', 'Close')
+      -- Restore buffer
+      map('<A-s-c>', '<Cmd>BufferRestore<CR>', 'Restore')
       -- Wipeout buffer
       --                 :BufferWipeout
       -- Close commands
@@ -73,17 +123,32 @@ return {
   },
   { -- Session
     'rmagatti/auto-session',
+    dependencies = {
+      {
+        'tiagovla/scope.nvim',
+        config = true,
+      },
+    },
     config = function()
       vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals'
       require('auto-session').setup {
         suppressed_dirs = { '~/', '~/projects', '~/Downloads', '/' },
 
         pre_save_cmds = {
-          function() -- Barbar can restore buffer order and pins
-            vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
-          end,
+          'ScopeSaveState',
+        },
+
+        post_restore_cmds = {
+          'ScopeLoadState',
         },
       }
+    end,
+  },
+  {
+    'tiagovla/scope.nvim',
+    config = function()
+      require('scope').setup {}
+      vim.keymap.set('n', '<leader>bm', '<cmd>ScopeMoveBuf<CR>', { desc = '[B]uffer: Scope [M]ove' })
     end,
   },
   { -- Better TypeScript LSP integration
