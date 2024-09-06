@@ -21,7 +21,7 @@ return {
       vim.g.barbar_auto_setup = false
     end,
     config = function()
-      require('barbar').setup()
+      require('barbar').setup {}
 
       local map = function(keys, func, desc)
         vim.keymap.set('n', keys, func, { desc = '[B]uffer: ' .. desc })
@@ -79,7 +79,15 @@ return {
   { -- Status Bar
     'nvim-lualine/lualine.nvim',
     dependencies = { { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font } },
-    opts = {},
+    opts = {
+      sections = {
+        lualine_c = {
+          function()
+            return require('auto-session.lib').current_session_name(true)
+          end,
+        },
+      },
+    },
   },
   { -- Fzf
     'ibhagwan/fzf-lua',
@@ -149,7 +157,16 @@ return {
   { -- Workspace
     'rmagatti/auto-session',
     config = function()
-      require('auto-session').setup { suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' } }
+      vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals'
+      require('auto-session').setup {
+        suppressed_dirs = { '~/', '~/projects', '~/Downloads', '/' },
+
+        pre_save_cmds = {
+          function() -- Barbar can restore buffer order and pins
+            vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
+          end,
+        },
+      }
     end,
   },
 }
