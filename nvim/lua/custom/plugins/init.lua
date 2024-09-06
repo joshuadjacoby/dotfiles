@@ -41,7 +41,7 @@ return {
       map('<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', 'Goto 9')
       map('<A-0>', '<Cmd>BufferLineGoToBuffer -1<CR>', 'Goto Last')
       -- Pin/unpin buffer
-      map('<A-p>', '<Cmd>BufferLineTogglePin<CR>', 'Pin')
+      -- map('<A-p>', '<Cmd>BufferLineTogglePin<CR>', 'Pin')
       -- Close buffer
       map('<A-c>', '<Cmd>BufferLinePickClose<CR>', 'Close')
       -- Close commands
