@@ -91,6 +91,7 @@ fi
 
 printf "source ~/.dotfiles/zsh/zshrc_manager.sh" > ~/.zshrc
 printf "so ~/.dotfiles/vim/vimrc.vim" > ~/.vimrc
+mkdir ~/.config/
 mkdir ~/.config/nvim-vim/
 printf "set runtimepath^=~/.vim runtimepath+=~/.vim/after\nlet &packpath = &runtimepath\nsource ~/.vimrc\n" > ~/.config/nvim-vim/init.vim
 mkdir ~/.config/nvim/
