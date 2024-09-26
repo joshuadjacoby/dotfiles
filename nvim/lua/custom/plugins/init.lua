@@ -43,11 +43,11 @@ return {
       -- Pin/unpin buffer
       -- map('<A-p>', '<Cmd>BufferLineTogglePin<CR>', 'Pin')
       -- Close buffer
-      map('<A-c>', '<Cmd>BufferLinePickClose<CR>', 'Close')
+      map('<leader>bc', '<Cmd>BufferLinePickClose<CR>', 'Pick [C]lose')
       -- Close commands
-      map('<leader>bc', '<Cmd>BufferLineCloseOthers<CR>', '[C]lose Others')
-      --                 :BufferLineCloseLeft
-      --                 :BufferLineCloseRight
+      map('<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', 'Close [O]thers')
+      map('<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', 'Close [L]eft')
+      map('<leader>br', '<Cmd>BufferLineCloseRight<CR>', 'Close [R]ight')
       -- Magic buffer-picking mode
       map('<C-p>', '<Cmd>BufferLinePick<CR>', 'Pick')
       -- Sort automatically by...
