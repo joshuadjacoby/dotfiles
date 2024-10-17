@@ -126,4 +126,4 @@ chpwd() ls
 ZSH_TMUX_AUTOCONNECT=false
 
 # fzf in terminal
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
