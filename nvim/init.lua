@@ -602,8 +602,7 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettier', 'eslint' },
-        typescript = { 'prettier', 'eslint' },
+        ['javascript,javascriptreact,typescript,typescriptreact'] = { 'prettier' },
       },
     },
   },
