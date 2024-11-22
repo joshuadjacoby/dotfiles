@@ -228,6 +228,10 @@ return {
   },
   'google/vim-searchindex', -- display search index
   'romainl/vim-cool', -- auto clear highlight after search
+  { -- Highlight Hex Colors
+    'brenoprata10/nvim-highlight-colors',
+    opts = {},
+  },
   { -- JsDoc
     'heavenshell/vim-jsdoc',
     ft = { 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx' },
