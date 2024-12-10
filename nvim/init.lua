@@ -551,6 +551,7 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'prettierd',
         'eslint-lsp',
+        'eslint_d',
         'markdownlint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -602,10 +603,22 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd' },
-        javascriptreact = { 'prettierd' },
-        typescript = { 'prettierd' },
-        typescriptreact = { 'prettierd' },
+        javascript = function(bufnr)
+          local filepath = vim.api.nvim_buf_get_name(bufnr)
+          return filepath:find('/Users/jjacoby/Projects/arkham', 1, true) and { 'eslint_d' } or { 'prettierd' }
+        end,
+        javascriptreact = function(bufnr)
+          local filepath = vim.api.nvim_buf_get_name(bufnr)
+          return filepath:find('/Users/jjacoby/Projects/arkham', 1, true) and { 'eslint_d' } or { 'prettierd' }
+        end,
+        typescript = function(bufnr)
+          local filepath = vim.api.nvim_buf_get_name(bufnr)
+          return filepath:find('/Users/jjacoby/Projects/arkham', 1, true) and { 'eslint_d' } or { 'prettierd' }
+        end,
+        typescriptreact = function(bufnr)
+          local filepath = vim.api.nvim_buf_get_name(bufnr)
+          return filepath:find('/Users/jjacoby/Projects/arkham', 1, true) and { 'eslint_d' } or { 'prettierd' }
+        end,
       },
     },
   },
