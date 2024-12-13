@@ -605,19 +605,19 @@ require('lazy').setup({
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = function(bufnr)
           local filepath = vim.api.nvim_buf_get_name(bufnr)
-          return filepath:find('/Users/jjacoby/Projects/arkham', 1, true) and { 'eslint_d' } or { 'prettierd' }
+          return filepath:find('/Users/jjacoby/Projects/metropolis', 1, true) and { 'prettierd' } or { 'eslint_d' }
         end,
         javascriptreact = function(bufnr)
           local filepath = vim.api.nvim_buf_get_name(bufnr)
-          return filepath:find('/Users/jjacoby/Projects/arkham', 1, true) and { 'eslint_d' } or { 'prettierd' }
+          return filepath:find('/Users/jjacoby/Projects/metropolis', 1, true) and { 'prettierd' } or { 'eslint_d' }
         end,
         typescript = function(bufnr)
           local filepath = vim.api.nvim_buf_get_name(bufnr)
-          return filepath:find('/Users/jjacoby/Projects/arkham', 1, true) and { 'eslint_d' } or { 'prettierd' }
+          return filepath:find('/Users/jjacoby/Projects/metropolis', 1, true) and { 'prettierd' } or { 'eslint_d' }
         end,
         typescriptreact = function(bufnr)
           local filepath = vim.api.nvim_buf_get_name(bufnr)
-          return filepath:find('/Users/jjacoby/Projects/arkham', 1, true) and { 'eslint_d' } or { 'prettierd' }
+          return filepath:find('/Users/jjacoby/Projects/metropolis', 1, true) and { 'prettierd' } or { 'eslint_d' }
         end,
       },
     },
