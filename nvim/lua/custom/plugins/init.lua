@@ -219,6 +219,7 @@ return {
       vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<CR>', { desc = '[G]it [B]lame' })
     end,
   },
+  'github/copilot.vim',
   'mg979/vim-visual-multi', -- multiple cursors
   { -- new vim surround in lua
     'kylechui/nvim-surround',
