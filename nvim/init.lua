@@ -588,6 +588,18 @@ require('lazy').setup({
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
+        -- List of directories to disable format_on_save
+        local disable_dirs = { '/Users/jjacoby/Projects/arkham' }
+
+        -- Get the full file path of the current buffer
+        local filepath = vim.api.nvim_buf_get_name(bufnr)
+
+        -- Check if the file is inside one of the disable_dirs
+        for _, dir in ipairs(disable_dirs) do
+          if filepath:find(dir, 1, true) then -- Exact match, case-sensitive
+            return false -- Disable format_on_save for this directory
+          end
+        end
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
