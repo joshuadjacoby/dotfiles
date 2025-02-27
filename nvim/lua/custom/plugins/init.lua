@@ -1,16 +1,4 @@
 return {
-  { -- GitHub integration
-    'pwntester/octo.nvim',
-    enabled = false,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'ibhagwan/fzf-lua',
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-    },
-    config = function()
-      require('octo').setup { picker = 'fzf-lua' }
-    end,
-  },
   { -- Buffers in the tabline
     'akinsho/bufferline.nvim',
     version = '*',
@@ -55,71 +43,6 @@ return {
       map('<leader>be', '<Cmd>BufferLineSortByExtension<CR>', 'Order By [E]xtension')
       map('<leader>bt', '<Cmd>BufferLineSortByTabs<CR>', 'Order By [T]abs')
     end,
-  },
-  { -- Buffers in the tabline
-    'romgrk/barbar.nvim',
-    enabled = false,
-    dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font }, -- OPTIONAL: for file icons
-    },
-    init = function()
-      vim.g.barbar_auto_setup = false
-    end,
-    config = function()
-      require('barbar').setup {
-        animation = false,
-      }
-
-      local map = function(keys, func, desc)
-        vim.keymap.set('n', keys, func, { desc = '[B]uffer: ' .. desc })
-      end
-
-      -- Move to previous/next
-      map('<A-,>', '<Cmd>BufferPrevious<CR>', 'Previous')
-      map('<A-.>', '<Cmd>BufferNext<CR>', 'Next')
-      -- Re-order to previous/next
-      map('<A-<>', '<Cmd>BufferMovePrevious<CR>', 'Move Previous')
-      map('<A->>', '<Cmd>BufferMoveNext<CR>', 'Move Next')
-      -- Goto buffer in position...
-      map('<A-1>', '<Cmd>BufferGoto 1<CR>', 'Goto 1')
-      map('<A-2>', '<Cmd>BufferGoto 2<CR>', 'Goto 2')
-      map('<A-3>', '<Cmd>BufferGoto 3<CR>', 'Goto 3')
-      map('<A-4>', '<Cmd>BufferGoto 4<CR>', 'Goto 4')
-      map('<A-5>', '<Cmd>BufferGoto 5<CR>', 'Goto 5')
-      map('<A-6>', '<Cmd>BufferGoto 6<CR>', 'Goto 6')
-      map('<A-7>', '<Cmd>BufferGoto 7<CR>', 'Goto 7')
-      map('<A-8>', '<Cmd>BufferGoto 8<CR>', 'Goto 8')
-      map('<A-9>', '<Cmd>BufferGoto 9<CR>', 'Goto 9')
-      map('<A-0>', '<Cmd>BufferLast<CR>', 'Goto Last')
-      -- Pin/unpin buffer
-      map('<A-p>', '<Cmd>BufferPin<CR>', 'Pin')
-      -- Close buffer
-      map('<A-c>', '<Cmd>BufferClose<CR>', 'Close')
-      -- Restore buffer
-      map('<A-s-c>', '<Cmd>BufferRestore<CR>', 'Restore')
-      -- Wipeout buffer
-      --                 :BufferWipeout
-      -- Close commands
-      --                 :BufferCloseAllButCurrent
-      --                 :BufferCloseAllButPinned
-      --                 :BufferCloseAllButCurrentOrPinned
-      --                 :BufferCloseBuffersLeft
-      --                 :BufferCloseBuffersRight
-      -- Magic buffer-picking mode
-      map('<C-p>', '<Cmd>BufferPick<CR>', 'Pick')
-      -- Sort automatically by...
-      map('<leader>bb', '<Cmd>BufferOrderByBufferNumber<CR>', 'Order By [B]uffer Number')
-      map('<leader>bn', '<Cmd>BufferOrderByName<CR>', 'Order By [N]ame')
-      map('<leader>bd', '<Cmd>BufferOrderByDirectory<CR>', 'Order By [D]irectory')
-      map('<leader>bl', '<Cmd>BufferOrderByLanguage<CR>', 'Order By [L]anguage')
-      map('<leader>bw', '<Cmd>BufferOrderByWindowNumber<CR>', 'Order By [W]indow Number')
-
-      -- Other:
-      -- :BarbarEnable - enables barbar (enabled by default)
-      -- :BarbarDisable - very bad command, should never be used
-    end,
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
   { -- Session
     'rmagatti/auto-session',
@@ -238,4 +161,13 @@ return {
     build = 'make install',
   },
   'ntpeters/vim-better-whitespace', -- highlights trailing whitespace
+  { -- markdown preview
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && yarn install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+    end,
+    ft = { 'markdown' },
+  },
 }
