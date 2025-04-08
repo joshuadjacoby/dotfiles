@@ -552,6 +552,7 @@ require('lazy').setup({
         'prettierd',
         'eslint-lsp',
         'markdownlint',
+        'jq',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -600,6 +601,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
+        json = { 'jq' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettierd' },
