@@ -589,18 +589,6 @@ require('lazy').setup({
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
-        -- List of directories to disable format_on_save
-        local disable_dirs = { '/Users/jjacoby/Projects/arkham' }
-
-        -- Get the full file path of the current buffer
-        local filepath = vim.api.nvim_buf_get_name(bufnr)
-
-        -- Check if the file is inside one of the disable_dirs
-        for _, dir in ipairs(disable_dirs) do
-          if filepath:find(dir, 1, true) then -- Exact match, case-sensitive
-            return false -- Disable format_on_save for this directory
-          end
-        end
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
@@ -610,30 +598,38 @@ require('lazy').setup({
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
       end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        json = { 'jq' },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = function(bufnr)
-          local filepath = vim.api.nvim_buf_get_name(bufnr)
-          return filepath:find('/Users/jjacoby/Projects/metropolis', 1, true) and { 'prettierd' } or { 'eslint_d' }
-        end,
-        javascriptreact = function(bufnr)
-          local filepath = vim.api.nvim_buf_get_name(bufnr)
-          return filepath:find('/Users/jjacoby/Projects/metropolis', 1, true) and { 'prettierd' } or { 'eslint_d' }
-        end,
-        typescript = function(bufnr)
-          local filepath = vim.api.nvim_buf_get_name(bufnr)
-          return filepath:find('/Users/jjacoby/Projects/metropolis', 1, true) and { 'prettierd' } or { 'eslint_d' }
-        end,
-        typescriptreact = function(bufnr)
-          local filepath = vim.api.nvim_buf_get_name(bufnr)
-          return filepath:find('/Users/jjacoby/Projects/metropolis', 1, true) and { 'prettierd' } or { 'eslint_d' }
-        end,
-      },
+      formatters_by_ft = (function()
+        -- Shared helper to look upward for any prettier config files.
+        -- Matches .prettierrc, .prettierrc.json, .prettierrc.yml, prettier.config.js, etc.
+        local function has_prettier_rc(start_dir)
+          local matches = vim.fs.find(function(name, _)
+            return name:match '^%.prettierrc' or name:match '^prettier%.config'
+          end, { path = start_dir, upward = true })
+          return #matches > 0
+        end
+
+        -- Shared choice function for JS/TS files.
+        -- Uses prettierd if config exists, otherwise eslint_d.
+        local function js_ts_choice(bufnr)
+          local dir = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr))
+          return has_prettier_rc(dir) and { 'prettierd' } or { 'eslint_d' }
+          -- If you’d rather disable formatting entirely when no Prettier config,
+          -- replace { 'eslint_d' } with {}.
+        end
+
+        return {
+          lua = { 'stylua' },
+          -- Conform can also run multiple formatters sequentially
+          -- python = { "isort", "black" },
+          json = { 'jq' },
+          --
+          -- You can use 'stop_after_first' to run the first available formatter from the list
+          javascript = js_ts_choice,
+          javascriptreact = js_ts_choice,
+          typescript = js_ts_choice,
+          typescriptreact = js_ts_choice,
+        }
+      end)(),
     },
   },
 
