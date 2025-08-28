@@ -550,7 +550,7 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'prettierd',
-        'eslint-lsp',
+        'eslint_d',
         'markdownlint',
         'jq',
       })
@@ -597,18 +597,38 @@ require('lazy').setup({
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
       end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        json = { 'jq' },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd' },
-        javascriptreact = { 'prettierd' },
-        typescript = { 'prettierd' },
-        typescriptreact = { 'prettierd' },
-      },
+      formatters_by_ft = (function()
+        -- Shared helper to look upward for any prettier config files.
+        -- Matches .prettierrc, .prettierrc.json, .prettierrc.yml, prettier.config.js, etc.
+        local function has_prettier_rc(start_dir)
+          local matches = vim.fs.find(function(name, _)
+            return name:match '^%.prettierrc' or name:match '^prettier%.config'
+          end, { path = start_dir, upward = true })
+          return #matches > 0
+        end
+
+        -- Shared choice function for JS/TS files.
+        -- Uses prettierd if config exists, otherwise eslint_d.
+        local function js_ts_choice(bufnr)
+          local dir = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr))
+          return has_prettier_rc(dir) and { 'prettierd' } or { 'eslint_d' }
+          -- If you’d rather disable formatting entirely when no Prettier config,
+          -- replace { 'eslint_d' } with {}.
+        end
+
+        return {
+          lua = { 'stylua' },
+          -- Conform can also run multiple formatters sequentially
+          -- python = { "isort", "black" },
+          json = { 'jq' },
+          --
+          -- You can use 'stop_after_first' to run the first available formatter from the list
+          javascript = js_ts_choice,
+          javascriptreact = js_ts_choice,
+          typescript = js_ts_choice,
+          typescriptreact = js_ts_choice,
+        }
+      end)(),
     },
   },
 
