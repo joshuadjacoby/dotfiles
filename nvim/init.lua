@@ -10,6 +10,9 @@ vim.g.have_nerd_font = true
 -- Set to true to use fzf-lua in place of telescope
 vim.g.use_fzf_lua = true
 
+-- Enable virtual text for diagnostics
+vim.diagnostic.config { virtual_text = true }
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
