@@ -206,6 +206,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').add {
+        { '<leader>a', group = '[A]I/Claude Code' },
         { '<leader>b', group = '[B]uffer' },
         { '<leader>c', group = '[C]ode' },
         { '<leader>d', group = '[D]ocument' },
