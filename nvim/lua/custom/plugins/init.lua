@@ -171,7 +171,7 @@ return {
     end,
     ft = { 'markdown' },
   },
-  { -- Claude Code AI Assistant
+  { -- Claude Code
     'coder/claudecode.nvim',
     dependencies = { 'folke/snacks.nvim' },
     config = true,
