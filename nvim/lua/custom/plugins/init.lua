@@ -142,7 +142,17 @@ return {
       vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<CR>', { desc = '[G]it [B]lame' })
     end,
   },
-  'github/copilot.vim',
+  { -- Copilot
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
+  },
   'mg979/vim-visual-multi', -- multiple cursors
   { -- new vim surround in lua
     'kylechui/nvim-surround',
